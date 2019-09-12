@@ -95,7 +95,7 @@ Simulation exercises can be found here as a Jupyter Notebook: \url{https://githu
 
 \subsection{Shannon Entropy}
 
-The class seems to agree that the time to fixation when $N = 20$ is around 27. We will now derive the results.\\
+The class seems to agree that the time to fixation when $N = 20$ and $p = 0.5$ is around 27. We will now derive the results.\\
 
 \noindent Firstly, the Shannon entropy is defined as
 \begin{equation}
@@ -105,14 +105,11 @@ where $\displaystyle p_i = \frac{x_i}{N}$. In words, the Shannon diversity index
 \begin{equation}
     S(X) = 0 \Longleftrightarrow \text{Fixation} \nonumber
 \end{equation}
-The partial derivative of $S(X)$ is
-\begin{equation}
-    \frac{\partial S(X)}{x_i} = -\frac{1}{N}(1 + \log(\frac{x_i}{N})) \nonumber
-\end{equation}
-and the second partial derivative of $S(X)$ is
-\begin{equation}
-    \frac{\partial^2 S(X)}{\partial x_i \partial x_j} = -\frac{\delta_{ij}}{Nx_j} \label{partial^2}
-\end{equation}
+The partial derivatives of $S(X)$ are
+\begin{align}
+    \frac{\partial S(X)}{x_i} &= -\frac{1}{N}(1 + \log(\frac{x_i}{N})) \nonumber \\
+    \frac{\partial^2 S(X)}{\partial x_i \partial x_j} &= -\frac{\delta_{ij}}{Nx_j} \label{partial^2}
+\end{align}
 where
 \begin{equation}
     \delta_{ij} = \begin{cases}
