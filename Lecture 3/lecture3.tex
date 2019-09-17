@@ -62,9 +62,9 @@
 
 \section{Review: Taylor's Expansion}
 
-\textbf{Motivation:} Calculating values (i.e. $e^x$) is difficult for humans (and often even computers)\\
+\textbf{Motivation:} Calculating values (e.g. $e^x$) is difficult for humans (and often even computers)\\
 
-\noindent \textbf{Example:} Suppose our function is $sin(x)$ and we want to calculate the value of the red dot in Figure \ref{fig1}. If $X$ is large, it is very difficult to compute the exact value. Instead, we can use Taylor's Expansion to approximate the purple function in Figure \ref{fig1}.
+\noindent \textbf{Example:} Suppose our function is $sin(x)$ and we want to calculate the value of the red dot in Figure \ref{fig1}. We can use Taylor's Expansion to approximate the purple function in Figure \ref{fig1}.
 
 \begin{figure}[h]
 \caption{Approximating $\sin (x)$}
@@ -76,7 +76,7 @@
 
 \noindent Let
 \begin{equation}
-    T(X) = a_0 + a_1 x + a_2 x^2 + a_3 x^3
+    T(X = 3) = a_0 + a_1 x + a_2 x^2 + a_3 x^3
 \end{equation}
 and set $a_0$, $a_1$, $a_2$, and $a_3$ such that
 \begin{align*}
@@ -85,66 +85,71 @@ and set $a_0$, $a_1$, $a_2$, and $a_3$ such that
     T''(0) &= sin''(0)\\
     T'''(0) &= sin'''(0)
 \end{align*}
-So, for $T(X)$,
+So, for $T(3)$,
 \begin{align*}
-    T(X) &= a_0 + a_1 x + a_2 x^2 + a_3 x^3\\
-    T'(X) &= a_1 + 2a_2 x + 3a_3 x^2\\
-    T''(X) &= 2a_2 + 3*2a_3 x\\
-    T'''(X) &= 3*2a_3
+    T(3) &= a_0 + a_1 x + a_2 x^2 + a_3 x^3 & \approx \text{ } & sin(x)\\
+    T'(3) &= a_1 + 2a_2 x + 3a_3 x^2 & \approx \text{ } & sin'(x) = cos(x)\\
+    T''(3) &= 2a_2 + 3 \cdot 2a_3 x & \approx \text{ } & sin''(x) = -sin(x)\\
+    T'''(3) &= 3*2a_3 & \approx \text{ } & sin'''(x) = -cos(x)
 \end{align*}
 and
 \begin{align*}
-    sin(x) &= 0\\
-    sin'(x) = cos(x) &= 1\\
-    sin''(x) = -sin(x) &= 0\\
-    sin'''(x) = -cos(x) &= -1
+    sin(0) &= 0\\
+    sin'(0) = cos(0) &= 1\\
+    sin''(0) = -sin(0) &= 0\\
+    sin'''(0) = -cos(0) &= -1
 \end{align*}
-Hence, at $X = 0$,
+Hence, at $x = 0$,
 \begin{align*}
-    T(0) &= a_0 = 0\\
-    T'(0) &= a_1 = 1!a_1 = 1\\
-    T''(0) &= 2a_2 = 2!a_2 = 0\\
-    T'''(0) &= 3*2a_2 = 3!a_3 = -1
+    T(0) &= a_0\\
+    T'(0) &= a_1 = 1!a_1\\
+    T''(0) &= 2a_2 = 2!a_2\\
+    T'''(0) &= 3*2a_2 = 3!a_3
+\end{align*}
+where
+\begin{align*}
+    a_0 & = 0 \\
+    a_1 & = 1\\
+    a_2 & = 0\\
+    a_3 & = -\frac{1}{3!}
 \end{align*}
 Finally, we derive the Taylor's Expansion as
 \begin{equation}
     f(x) = \sum_{k = 0}^n \frac{f^{(k)}(a)}{k!}(x - a)^k \label{taylor}
 \end{equation}
-Expanding (\ref{taylor}), we get
+Generalizing (\ref{taylor}) for multiple variables, we get
 \begin{equation}
-    f(x_1, \dots, x_d) = \sum_{i_1 = 0}^m \dots \sum_{i_d = 0}^m \frac{\partial^{i_1} \dots \partial^{i_d}}{i_1!\dots i_d! \partial_{x_1}^{i_1}\dots \partial_{x_d}^{i_d}} f(a_1, \dots, a_d)(x_1 - a_1)^{i_1}\dots(x_d - a_d)^{i_d}
+    f(x_1, \dots, x_k) = \sum_{i_1 = 0}^m \dots \sum_{i_k = 0}^m \frac{\partial^{i_1} \dots \partial^{i_k}}{i_1!\dots i_k! \partial_{x_1}^{i_1}\dots \partial_{x_k}^{i_k}} f(a_1, \dots, a_k)(x_1 - a_1)^{i_1}\dots(x_k - a_k)^{i_k} \label{genTaylor}
 \end{equation}
-Using an example, where $m = 2$,
+
+\noindent \textbf{Example:} Expansion of $e^x(x, y) = e^x \ln(1 + y)$ at $(0, 0)$.\\
+
+\noindent Let's use the Taylor Expansion on another function. So, we expand (\ref{genTaylor}) where $m = 2$, $k = 2$:
 \begin{equation}
-    f(x, y) = e^x \ln(1 + y) \approx y + xy - y^2
+    f(x, y) = \sum_{i_1 = 0}^2 \sum_{i_2 = 0}^2 \frac{\partial^{i_1}\partial^{i_2}}{i_1!i_2!\partial_{x}^{i_1}\partial_{y}^{i_2}}f(a_1, a_2)(x - a_1)^{i_1}(y - a_2)^{i_2}
 \end{equation}
-Here is how we arrived at that approximation. The derivatives are as follows
+We first calculate the derivatives as follows:
 \begin{align}
-    \frac{\partial f}{\partial x} &= e^x \ln(1 + y)\\
-    \frac{\partial^2 f}{\partial^2 x} &= e^x \ln(1 + y)\\
-    \frac{\partial f}{\partial y} &= \frac{e^x}{1 + y}\\
-    \frac{\partial^2 f}{\partial^2 x} &= e^x \left( -\frac{1}{(1 + y)^2}\right)\\
-    \frac{\partial f}{\partial x \partial y} &= \frac{e^x}{1 + y}\\
+    \frac{\partial f(x, y)}{\partial x} &= e^x \ln(1 + y)\\
+    \frac{\partial^2 f(x, y)}{\partial^2 x} &= e^x \ln(1 + y)\\
+    \frac{\partial f(x, y)}{\partial y} &= \frac{e^x}{1 + y}\\
+    \frac{\partial^2 f(x, y)}{\partial^2 x} &= e^x \left( -\frac{1}{(1 + y)^2}\right)\\
+    \frac{\partial f(x, y)}{\partial x \partial y} &= \frac{e^x}{1 + y}\\
 \end{align}
-At $(x, y) = 0$, 
+At $(x, y) = (0, 0)$, 
 \begin{align}
-    \frac{\partial f}{\partial x} &= 0\\
-    \frac{\partial^2 f}{\partial^2 x} &= 0\\
-    \frac{\partial f}{\partial y} &= 1\\
-    \frac{\partial^2 f}{\partial^2 x} &= -1\\
-    \frac{\partial f}{\partial x \partial y} &= 1\\
+    \frac{\partial f(0, 0)}{\partial x} &= 0\\
+    \frac{\partial^2 f(0, 0)}{\partial^2 x} &= 0\\
+    \frac{\partial f(0, 0)}{\partial y} &= 1\\
+    \frac{\partial^2 f(0, 0)}{\partial^2 x} &= -1\\
+    \frac{\partial f(0, 0)}{\partial x \partial y} &= 1\\
 \end{align}
-\textbf{Notes:}
-\begin{itemize}
-    \item $\frac{\partial^2 f}{\partial x \partial y} \neq \frac{\partial^2 f}{\partial x \partial y}$ depending on the function.
-\end{itemize}
 
 \section{Heterozygosity Equation}
 
-\textbf{Recall:} CZ posed the question, ``Why does the Moran and Wright-Fisher models fixate when the heterozygosity equation (1) suggests otherwise?"
+\textbf{Recall:} CZ posed the question, ``Why does the Moran and Wright-Fisher models fixate when the heterozygosity equation below suggests otherwise?"
 \begin{align}
-    H_t &= H_0(1 - \frac{1}{N})^t \nonumber \\
-    &\approx H_0e^{-\frac{t}{N}} \label{H_0}
+    H_t = H_0(1 - \frac{1}{N})^t \approx H_0e^{-\frac{t}{N}} \label{H_0}
 \end{align}
 
 \noindent For some time $t$, the expected heterozygosity for two alleles is as follows
@@ -152,7 +157,7 @@ At $(x, y) = 0$,
     H_{t + 1} &= \frac{1}{N}*0 + (1 - \frac{1}{N})*H_t \nonumber \\
     &= (1 - \frac{1}{N})*H_t \label{H_t}
 \end{align}
-where $\frac{1}{N}$ is the probability two offspring share the same ancestor, and $(1 - \frac{1}{N})$ is the probability that they do not.\\
+Note that $\frac{1}{N}$ is the probability two offspring share the same ancestor, and $(1 - \frac{1}{N})$ is the probability that they do not.\\
 
 \noindent \textbf{Explanation:} We are calculating the expected value of the next time step. The probability of reaching, thereby fixating at, $0$ or $N$ is non-zero.
 
@@ -169,18 +174,23 @@ In the Wright-Fisher Model (a.k.a. Fisher-Wright Model), you choose $n$ alleles 
     X \sim Bin(n, p) \label{bin}
 \end{equation}
 
+\noindent The expectation for selecting $j$ alleles with probability $p$ is
+\begin{align}
+    \left< j \right> &= np
+\end{align}
+and the variance is
+\begin{align}
+    Var \left< j \right> &= \left< j^2 \right> - \left< j \right>^2 \label{var1} \\
+    &= np(1-p)
+\end{align}
+because the Wright-Fisher Model follows a binomial distribution.\\
+
 \subsection{Simulations}
 Simulation exercises can be found here as a Jupyter Notebook: \url{https://github.com/michellemli/BMIF201}\\
 
+\noindent The class seems to agree that the time to fixation when $N = 20$ and $p = 0.5$ is around 27. We will now derive the results in the next section.\\
+
 \subsection{Shannon Entropy}
-
-The class seems to agree that the time to fixation when $N = 20$ and $p = 0.5$ is around 27. We will now derive the results.\\
-
-\noindent Firstly, the Shannon entropy is defined as
-\begin{equation}
-    S(X) = -\sum p_i \log_i(p_i) \label{S_X}
-\end{equation}
-where $\displaystyle p_i = \frac{x_i}{N}$. When $p = 0.5$, the entropy is at its peak (Figure \ref{fig2}).
 
 \begin{figure}[h]
 \caption{Shannon Entropy}
@@ -189,11 +199,19 @@ where $\displaystyle p_i = \frac{x_i}{N}$. When $p = 0.5$, the entropy is at its
 \label{fig2}
 \end{figure}
 
+\noindent \textbf{Example:} For two alleles with probability $p$ and $1 - p$. When $p = 0.5$, the entropy is at its peak (Figure \ref{fig2}).\\
+
+\newpage\noindent Now, let us consider $k$ alleles. Firstly, the Shannon entropy is defined as
+\begin{equation}
+    S(X) = -\sum_{i = 1}^k p_i \log(p_i) \label{S_X}
+\end{equation}
+where $\displaystyle p_i = \frac{x_i}{N}$. \\
+
 \noindent At fixation, this value is $0$ because there is only one allele in the population.
 \begin{equation}
     S(X) = 0 \Longleftrightarrow \text{Fixation} \nonumber
 \end{equation}
-The partial derivatives of $S(X)$ are
+We will use Taylor Expansion to approximate $S(X)$ with degree 2. So, we will prepare the partial derivatives as follows
 \begin{align}
     \frac{\partial S(X)}{x_i} &= -\frac{1}{N}(1 + \log(\frac{x_i}{N})) \nonumber \\
     \frac{\partial^2 S(X)}{\partial x_i \partial x_j} &= -\frac{\delta_{ij}}{Nx_j} \label{partial^2}
@@ -205,20 +223,22 @@ where
         0, & \text{if } i \neq j
     \end{cases} \label{delta}
 \end{equation}
-Recall that the expectation for selecting $j$ alleles with probability $p$ is
+
+\noindent Recall that the expectation for selecting $k$ alleles with probability $p$ is
 \begin{align}
-    \left< j \right> &= np \label{exp}
+    \left< k \right> &= np \label{exp}
 \end{align}
 and the variance is
 \begin{align}
-    Var \left< j \right> &= \left< j^2 \right> - \left< j \right>^2 \label{var1} \\
+    Var \left< k \right> &= \left< k^2 \right> - \left< k \right>^2 \label{var1} \\
     &= np(1-p) \label{var2}
 \end{align}
-because the Wright-Fisher Model follows a binomial distribution.\\
 
-\noindent To calculate the change in Shanon entropy over one time step:
+\noindent To calculate the change in Shanon entropy over one time step (i.e. from generation $t$ to generation $t + 1$):\\
 
-\noindent Let $k$ be the number of alleles, and $x$ be the number of black alleles.
+\noindent Let us denote the change in $X$ through one generation by $\Delta X$. So, $x + \Delta x = t + 1$. Also, let $x$ be the number of black alleles.\\
+
+\noindent Here, we use the Taylor Expansion to approximate $\left< S(x + \Delta x) \right>$:
 \begin{align}
     \left< S(x + \Delta x) \right> &\approx  \left<S(x) + \sum_i^k \frac{\partial S(x)}{\partial x}\Delta x_i + \frac{1}{2}\sum_i^k \sum_i^k \frac{\partial^2 S(x)}{\partial x_i \partial x_j} \right> \label{S1} \\
     &= S(x) + \sum_i^k \frac{\partial S(x)}{\partial x_i} \left< \Delta x_i \right> + \frac{1}{2}\sum_i^k \sum_j^k \frac{\partial^2 S(x)}{\partial^2 x_i \partial^2 x_j} \left< \Delta x_i \Delta x_j \right> \label{S2} \\
@@ -232,6 +252,8 @@ because the Wright-Fisher Model follows a binomial distribution.\\
 
 \noindent \textbf{Remarks:}
 \begin{itemize}
+    \item For (\ref{S1}), use Taylor Expansion with degree 2 to approximate $\left< S(x + \Delta x) \right>$
+    \item Applying the linearity of expectations property to get from (\ref{S1}) to (\ref{S2})
     \item Taking the partial derivative of $x_i$ in (\ref{S2}) results in $\left< \Delta x_i \right> = 0$.
     \item For (\ref{S3}), substitute with (\ref{partial^2}) to get (\ref{S4}).
     \item For (\ref{S4}), recall that $\delta_{ij} = 1$ when $i = j$ from (\ref{delta}).
@@ -240,7 +262,7 @@ because the Wright-Fisher Model follows a binomial distribution.\\
     \item For (\ref{S7}), remember that $\sum_i^k 1 = k$ and $\sum_i^k x_i = N$, which simplifies (\ref{S7}) into (\ref{S8}).
 \end{itemize}
 
-\noindent So, the expected change in Shannon entropy from generation to generation is
+\noindent So, the expected change in Shannon entropy from generation $t$ to generation $t + 1$ is
 \begin{align}
     \left< \Delta S(X) \right> &= \left< S(x + \Delta x) \right> - S(x) = -\frac{k - 1}{2N} \label{ES}
 \end{align}
@@ -254,4 +276,3 @@ where, after substituting in (\ref{ES}),
 \end{align}
 
 \end{document}
-
